@@ -23,7 +23,7 @@ def checkForLexer(dirName):
                 data = file.read().replace('\n', '')
                 if 'ERROR' in data:
                     print folderName, "error"
-                if r"unget" in data:
+                if 'unget' in data:
                     print folderName, "unget"
 
 
