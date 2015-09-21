@@ -2,13 +2,36 @@ import os
 import re
 __author__ = 'saipc'
 
-def checkForLexer(dirName):
-    print "Checks for lexer"
+def checkForLexer(folderName, fileName):
+    #print files
+    with open(os.path.join(folderName, fileName), 'r') as file:
+        data = file.read().replace('\n', ' ')
+        if 'ERROR' in data:
+            print folderName, "error"
+        if 'unget' in data:
+            print folderName, "unget"
+        matches = re.findall(r"getToken", data)
+        count = len(matches)
+        if count > 3:
+            print folderName, "get", count
+
+def checkForMemoryAlloc(folderName, fileName):
+    with open(os.path.join(folderName, fileName), 'r') as file:
+        data = file.read().replace('\n', ' ')
+        matches = re.findall(r"(malloc)|(strdup)", data)
+        count = len(matches)
+        matches2 = re.findall(r"free", data)
+        count = count - len(matches2)
+        if count != 0:
+            print "Checking for proper memory alloc"
+            print folderName, fileName, count
+            print "---------------------"
+
+
+def checkFiles(dirName):
     os.chdir(dirName)
     folderList=os.listdir(dirName)
     folderList.pop(0)
-    errorRE = re.compile(r"ERROR")
-    ungetTokenRE = re.compile(r"ungetToken\(\)")
     #print folderList
     for folderName in folderList:
         files = os.listdir(folderName)
@@ -18,21 +41,9 @@ def checkForLexer(dirName):
             files.remove('lexer.c')
         if 'lexer.h' in files:
             files.remove('lexer.h')
-        #print files
         for fileName in files:
-            with open(os.path.join(folderName, fileName), 'r') as file:
-                data = file.read().replace('\n', '')
-                if 'ERROR' in data:
-                    print folderName, "error"
-                if 'unget' in data:
-                    print folderName, "unget"
-                matches = re.findall(r"getToken", data)
-                count = len(matches)
-                if count > 3:
-                    print folderName, "get", count
+            checkForLexer(folderName, fileName)
+            checkForMemoryAlloc(folderName, fileName)
 
 
-checkForLexer(r"/Users/schandramouli/Documents/CSE 340 Project 2/cse340_f15_p2_submissions/correction-saipc")
-
-def checkForMemoryAlloc(dirName):
-    print 'nothing'
+checkFiles(r"/Users/schandramouli/Documents/CSE 340 Project 2/cse340_f15_p2_submissions/correction-saipc")
