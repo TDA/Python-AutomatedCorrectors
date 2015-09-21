@@ -3,6 +3,7 @@ import re
 __author__ = 'saipc'
 
 def checkForLexer(dirName):
+    print "Checks for lexer"
     os.chdir(dirName)
     folderList=os.listdir(dirName)
     folderList.pop(0)
@@ -25,6 +26,13 @@ def checkForLexer(dirName):
                     print folderName, "error"
                 if 'unget' in data:
                     print folderName, "unget"
+                matches = re.findall(r"getToken", data)
+                count = len(matches)
+                if count > 3:
+                    print folderName, "get", count
 
 
 checkForLexer(r"/Users/schandramouli/Documents/CSE 340 Project 2/cse340_f15_p2_submissions/correction-saipc")
+
+def checkForMemoryAlloc(dirName):
+    print 'nothing'
