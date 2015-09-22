@@ -21,7 +21,7 @@ def checkFiles(dirName):
         # theoretically this should work, it worked for the file i compiled myself to a.out
         # now if we can have all the .out files in the dirs, we can simply check for all mem leaks :D
         filePath = os.path.join(dirName, folderName, 'a.out')
-        fullFilePathCommand= r'/Users/schandramouli/PycharmProjects/Python_AutomatedCorrectors/script.sh ' + filePath
+        fullFilePathCommand= r"/Users/schandramouli/PycharmProjects/Python_AutomatedCorrectors/script.sh " + filePath
         retVal = subprocess.call('bash ' + fullFilePathCommand, shell=True)
         print retVal
         if retVal == 21:
