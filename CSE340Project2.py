@@ -29,4 +29,4 @@ def copyDirectory(src, dest):
         print('Directory not copied. Error: %s' % e)
 
 
-separateFilesToBeCorrected(r"/Users/schandramouli/Documents/CSE 340 Project 2/cse340_f15_p2_submissions")
+separateFilesToBeCorrected(r"/Users/schandramouli/Documents/CSE_340_Project_2/cse340_f15_p2_submissions")
