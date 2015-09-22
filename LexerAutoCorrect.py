@@ -27,7 +27,6 @@ def checkForMemoryAlloc(folderName, fileName):
             print folderName, fileName, count
             print "---------------------"
 
-
 def checkFiles(dirName):
     os.chdir(dirName)
     folderList=os.listdir(dirName)
@@ -44,6 +43,5 @@ def checkFiles(dirName):
         for fileName in files:
             checkForLexer(folderName, fileName)
             checkForMemoryAlloc(folderName, fileName)
-
 
 checkFiles(r"/Users/schandramouli/Documents/CSE_340_Project_2/cse340_f15_p2_submissions/correction-saipc")

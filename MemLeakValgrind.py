@@ -5,8 +5,10 @@ import subprocess
 def checkFiles(dirName):
     os.chdir(dirName)
     folderList=os.listdir(dirName)
+    # this is to pop out DS_Store, remove on platforms other than Mac
     folderList.pop(0)
     #print folderList
+    # iterate thru each folder and remove the files that we need not check
     for folderName in folderList:
         files = os.listdir(folderName)
         if '_test_results_' in files:
@@ -19,14 +21,12 @@ def checkFiles(dirName):
         #subprocess.call(['gcc', 'project2.c'])
 
         # theoretically this should work, it worked for the file i compiled myself to a.out
-        # now if we can have all the .out files in the dirs, we can simply check for all mem leaks :D
-        filePath = os.path.join(dirName, folderName, 'a.out')
+        # now if we can have all the .out files in the directories, we can simply check for all mem leaks :D
+        filePath = os.path.join(dirName, folderName, "a.out")
         fullFilePathCommand= r"/Users/schandramouli/PycharmProjects/Python_AutomatedCorrectors/script.sh " + filePath
         retVal = subprocess.call('bash ' + fullFilePathCommand, shell=True)
         print retVal
         if retVal == 21:
-            print folderName, " has a mem leak "
-
-
+            print folderName, " has a memory leak "
 
 checkFiles(r"/Users/schandramouli/Documents/CSE_340_Project_2/cse340_f15_p2_submissions/correction-saipc")
